@@ -17,24 +17,30 @@ use App\TimeTracker\Actions;
     <button type="submit" name="action" value="pause">ПАУЗА</button>
     <button type="submit" name="action" value="stop">СТОП</button>
     <br>
-    @if (!empty($timetrack))
-    @foreach($timetrack as $time)
-    @endforeach
+    @if (!is_null($timetrack))
         <table border="1">
             <tr>
-            <td>ID пользователя: {{$time->user_id}}</td> <br>
-            <td>Время начала: {{date('H:i:s', $time->start_time)}}</td> <br>
+            <th>ID пользователя</td>
+            <th>Время начала</th>
+            <th>Время окончания</th>
+            <th>Время работы</th>
+            </tr>
+    @foreach($timetrack as $time)
+            <tr>
+            <td>ID пользователя: {{$time->user_id}}</td>
+            <td>Время начала: {{date('H:i:s', $time->start_time)}}</td>
                 @if (!empty($time->finish_time))
-            <td>Время окончания: {{date('H:i:s', $time->finish_time)}}</td> <br>
+            <td>Время окончания: {{date('H:i:s', $time->finish_time)}}</td>
                 @else
             <td>В данный момент вы работаете</td>
                 @endif
                 @if (!empty($time->finish_time))
-            <td>Вы проработали:{{Actions::secondsToTime( $time->finish_time - $time->start_time)}}</td> <br>
+            <td>Вы проработали:{{Actions::secondsToTime( $time->finish_time - $time->start_time)}}</td>
                 @else
-            <td>Таймер активен</td> <br>
+            <td>Таймер активен</td>
                 @endif
             </tr>
+    @endforeach
         </table>
     @endif
 </form>
