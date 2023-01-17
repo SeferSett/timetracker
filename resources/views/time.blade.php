@@ -27,15 +27,15 @@ use App\TimeTracker\Actions;
             </tr>
     @foreach($timetrack as $time)
             <tr>
-            <td>ID пользователя: {{$time->user_id}}</td>
-            <td>Время начала: {{date('H:i:s', $time->start_time)}}</td>
+            <td>{{$time->user_id}}</td>
+            <td>{{date('H:i:s', $time->start_time)}}</td>
                 @if (!empty($time->finish_time))
-            <td>Время окончания: {{date('H:i:s', $time->finish_time)}}</td>
+            <td>{{date('H:i:s', $time->finish_time)}}</td>
                 @else
             <td>В данный момент вы работаете</td>
                 @endif
                 @if (!empty($time->finish_time))
-            <td>Вы проработали:{{Actions::secondsToTime( $time->finish_time - $time->start_time)}}</td>
+            <td>{{Actions::secondsToTime( $time->finish_time - $time->start_time)}}</td>
                 @else
             <td>Таймер активен</td>
                 @endif
