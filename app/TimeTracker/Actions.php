@@ -67,7 +67,7 @@ class Actions
     }
     public static function getTimetrack($user_id)
     {
-        return DB::select('SELECT * FROM timetrack WHERE user_id=?', [$user_id]);
+        return DB::select('SELECT * FROM timetrack WHERE user_id=? ORDER BY start_time DESC', [$user_id]);
     }
     public static function getAdmin($user_id)
     {
