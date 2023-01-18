@@ -78,11 +78,12 @@ use App\TimeTracker\Actions;
         <tr>
             <th>Сколько проработал</th>
         </tr>
-
+            <th>User</th>
             <th>Дата</th>
             <th>Время</th>
     @foreach($work as $value)
             <tr>
+                <td>{{$value->user_id}}</td>
                 <td>{{$value->dt}}</td>
                 <td>{{Actions::secondsTotime($value->time)}}</td>
             </tr>

@@ -95,6 +95,6 @@ class Actions
     }
     public static function allDayWork()
     {
-        return DB::select('SELECT DATE_FORMAT(FROM_UNIXTIME(start_time), "%Y-%m-%d") AS dt, sum(finish_time-start_time) AS time FROM timetrack t WHERE  finish_time IS NOT NULL GROUP BY dt ORDER BY dt DESC LIMIT 5;');
+        return DB::select('SELECT user_id, DATE_FORMAT(FROM_UNIXTIME(start_time), "%Y-%m") AS dt, sum(finish_time-start_time) AS time FROM timetrack t WHERE finish_time IS NOT NULL GROUP BY user_id, dt;');
     }
 }
