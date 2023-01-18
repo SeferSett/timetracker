@@ -8,8 +8,11 @@ use App\TimeTracker\Actions;
     <title>Тайм трекер </title>
 </head>
 <body>
+    @if (!isset($user))
+    @else
     @foreach($user as $us)
     @endforeach
+    @endif
     <p>Логин Пользователя: {{$us->name}}</p>
     <p>Почта пользователя: {{$us->email}}</p>
 <form action="/user" method="post">
@@ -43,6 +46,21 @@ use App\TimeTracker\Actions;
     @endforeach
         </table>
     @endif
+    @if (!is_null($work))
+    <table  cellspacing="10" cellpadding="1" border="1" align="right">
+                <tr>
+                    <th>Сколько проработал</th>
+                </tr>
+                <th>Дата</th>
+                <th>Время</th>
+                @foreach($work as $value)
+                    <tr>
+                        <td>{{$value->dt}}</td>
+                        <td>{{Actions::secondsTotime($value->time)}}</td>
+                    </tr>
+        @endforeach
+    @endif
+
 </form>
 </body>
 </html>

@@ -85,4 +85,16 @@ class Actions
     {
         return DB::select('SELECT sum(finish_time-start_time) FROM timetrack WHERE start_time>=? AND user_id=?', [$start_time, $user_id]);
     }
+    public static function howDayWork($user_id)
+    {
+        return DB::select('SELECT DATE_FORMAT(FROM_UNIXTIME(start_time), "%Y-%m-%d") AS dt, sum(finish_time-start_time) AS time FROM timetrack t WHERE user_id=? AND finish_time IS NOT NULL GROUP BY dt ORDER BY dt DESC LIMIT 5', [$user_id]);
+    }
+    public static function howManyPause()
+    {
+        return DB::select('SELECT t1.user_id, t1.finish_time AS start_pause, t2.start_time AS finish_pause FROM timetrack t1 LEFT JOIN timetrack t2 ON t1.next_id=t2.id WHERE t1.next_id IS NOT NULL;');
+    }
+    public static function allDayWork()
+    {
+        return DB::select('SELECT DATE_FORMAT(FROM_UNIXTIME(start_time), "%Y-%m-%d") AS dt, sum(finish_time-start_time) AS time FROM timetrack t WHERE  finish_time IS NOT NULL GROUP BY dt ORDER BY dt DESC LIMIT 5;');
+    }
 }

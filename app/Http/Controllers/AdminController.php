@@ -14,12 +14,14 @@ class AdminController extends Controller
         $user_id = Auth::id();
         $user = Actions::Allusers();
         $admin = Actions::getAdmin($user_id);
+        $work = Actions::allDayWork();
+        //$pause = Actions::howManyPause();
         if (!empty($admin)) {
-
             $result = Actions::allTimersWithUser();
             return view('admin', [
                 'result' => $result,
                 'user' => $user,
+                'work' => $work,
             ]);
         }
        return  redirect('/dashboard' );

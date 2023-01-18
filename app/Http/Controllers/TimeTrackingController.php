@@ -19,14 +19,15 @@ class TimeTrackingController extends Controller
         }
         $timetrack = Actions::getTimetrack($user_id);
         $user = Actions::getUserInfo($user_id);
-        //foreach ($timetrack as $time)
-        //$a = Actions::getTodaySum($time->start_time,$user_id);
+
+        $work = Actions::howDayWork($user_id);
 
 
         return view('time', [
         'user_id' => $user_id,
         'timetrack' => $timetrack,
         'user' => $user,
+        'work' => $work,
     ]);
     }
     public function userAction()
